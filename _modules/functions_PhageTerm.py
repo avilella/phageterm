@@ -164,8 +164,8 @@ def readsCoverage(fastq, refseq, hostseq, tot_reads, seed, edge, paired, insert_
     
     # Timer
     if core_id == (core-1):
-        sys.stdout.write("  0.0 %")
-        sys.stdout.flush()
+        sys.stderr.write("  0.0 %")
+        sys.stderr.flush()
     
     # Mapping
     if fastq.endswith('.gz'):
@@ -340,8 +340,8 @@ def readsCoverage(fastq, refseq, hostseq, tot_reads, seed, edge, paired, insert_
             # Timer
             if core_id == (core-1):
                 if k%1000 == 0:
-                    sys.stdout.write("\b\b\b\b\b\b\b\b\b%3.1f %%" %( float(read_match/gen_len) / limit_coverage * 100 ))
-                    sys.stdout.flush()
+                    sys.stderr.write("\b\b\b\b\b\b\b\b\b%3.1f %%" %( float(read_match/gen_len) / limit_coverage * 100 ))
+                    sys.stderr.flush()
 
         else:
             if line[0] == "@":
@@ -357,8 +357,8 @@ def readsCoverage(fastq, refseq, hostseq, tot_reads, seed, edge, paired, insert_
             
 
     if core_id == (core-1):
-        sys.stdout.write("\b\b\b\b\b\b\b\b\b%3.1f %%" %( 100 ))
-        sys.stdout.flush()
+        sys.stderr.write("\b\b\b\b\b\b\b\b\b%3.1f %%" %( 100 ))
+        sys.stderr.flush()
 
     # Close file
     filin.close()
@@ -475,9 +475,9 @@ def testwholeCov(added_whole_coverage, ave_whole_cov, test):
     if test:
         return ""
     if ave_whole_cov < 50:
-        print "\nWARNING: average coverage is under the limit of the software (50)"
+        print "\n# WARNING: average coverage is under the limit of the software (50)"
     elif ave_whole_cov < 200:
-        print "\nWARNING: average coverage is low (<200), Li's method is presumably unreliable\n"
+        print "\n# WARNING: average coverage is low (<200), Li's method is presumably unreliable\n"
     drop_cov = []
     start_pos = last_pos = count_pos = 0
     for pos in range(len(added_whole_coverage)):
@@ -1457,6 +1457,11 @@ def CreateReport(phagename, seed, added_whole_coverage, draw, Redundant, P_left,
         Ends = "Non Red."
 
     data = [["Ends", "Left (red)", "Right (green)", "Permuted", "Orientation", "Class", "Type"], [Ends, P_left, P_right, Permuted, P_orient, P_class, P_type]]
+    # import pdb; pdb.set_trace()
+    # NEMESIS: adding csv output
+    print "phagename,Ends,P_left,P_right,Permuted,P_orient,P_class,P_type"
+    print("%s,%s,%s,%s,%s,%s,%s,%s" % (phagename,Ends,P_left,P_right,Permuted,P_orient,P_class,P_type))
+    pass; # args.debug=False
     t=Table(data, 7*[1.10*inch], 2*[0.25*inch], hAlign='CENTER', style=[('FONT',(0,0),(-1,-2),'Helvetica-Bold'), ('GRID',(0,0),(-1,-1),0.5,colors.grey), ('FONTSIZE',(0,0),(-1,-1),12), ('ALIGN',(0,0),(-1,-1),'CENTER'),('VALIGN',(0,0),(-1,-1),'MIDDLE')])
     report.append(t)
     report.append(Spacer(1, 5))
