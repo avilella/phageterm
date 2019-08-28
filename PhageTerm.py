@@ -158,45 +158,45 @@ else:
 
 
 if options.test == "C5":
-    print               "\nPerforming a test run using test phage sequence with 5 prime cohesive overhang :"
-    print               "\npython PhageTerm.py -f test-data/COS-5.fastq -r test-data/COS-5.fasta -n TEST_cohesive_5_prime"
+    print               "\n# Performing a test run using test phage sequence with 5 prime cohesive overhang :"
+    print               "\n# python PhageTerm.py -f test-data/COS-5.fastq -r test-data/COS-5.fasta -n TEST_cohesive_5_prime"
     fastq               = "test-data/COS-5.fastq"
     reference           = "test-data/COS-5.fasta"
     phagename           = "Test-cohesive-5'"
 
 
 elif options.test == "C3":
-    print               "\nPerforming a test run using test phage sequence with 3 prime cohesive overhang:"
-    print               "\npython PhageTerm.py -f test-data/COS-3.fastq -r test-data/COS-3.fasta -n TEST_cohesive_3_prime"
+    print               "\n# Performing a test run using test phage sequence with 3 prime cohesive overhang:"
+    print               "\n# python PhageTerm.py -f test-data/COS-3.fastq -r test-data/COS-3.fasta -n TEST_cohesive_3_prime"
     fastq               = "test-data/COS-3.fastq"
     reference           = "test-data/COS-3.fasta"
     phagename           = "Test-cohesive-3'"
 
 elif options.test == "DS":
-    print               "\nPerforming a test run using test phage sequence with short direct terminal repeats (DTR-short) :"
-    print               "\npython PhageTerm.py -f test-data/DTR-short.fastq -r test-data/DTR-short.fasta -n TEST_short_direct_terminal_repeats"
+    print               "\n# Performing a test run using test phage sequence with short direct terminal repeats (DTR-short) :"
+    print               "\n# python PhageTerm.py -f test-data/DTR-short.fastq -r test-data/DTR-short.fasta -n TEST_short_direct_terminal_repeats"
     fastq               = "test-data/DTR-short.fastq"
     reference           = "test-data/DTR-short.fasta"
     phagename           = "Test-short-direct-terminal-repeats"
 
 elif options.test == "DL":
-    print               "\nPerforming a test run using test phage sequence with long direct terminal repeats (DTR-long) :"
-    print               "\npython PhageTerm.py -f test-data/DTR-long.fastq -r test-data/DTR-long.fasta -n TEST_long_direct_terminal_repeats"
+    print               "\n# Performing a test run using test phage sequence with long direct terminal repeats (DTR-long) :"
+    print               "\n# python PhageTerm.py -f test-data/DTR-long.fastq -r test-data/DTR-long.fasta -n TEST_long_direct_terminal_repeats"
     fastq               = "test-data/DTR-long.fastq"
     reference           = "test-data/DTR-long.fasta"
     phagename           = "Test-long-direct-terminal-repeats"
 
 elif options.test == "H":
-    print               "\nPerforming a test run using test phage sequence with headful packaging"
-    print               "\npython PhageTerm.py -f test-data/Headful.fastq -r test-data/Headful.fasta -n TEST_headful"
+    print               "\n# Performing a test run using test phage sequence with headful packaging"
+    print               "\n# python PhageTerm.py -f test-data/Headful.fastq -r test-data/Headful.fasta -n TEST_headful"
     fastq               = "test-data/Headful.fastq"
     reference           = "test-data/Headful.fasta"
     phagename           = "Test-Headful"
     surrounding         = 0
 
 elif options.test == "M":
-    print               "\nPerforming a test run using test phage sequence with Mu-like packaging"
-    print               "\npython PhageTerm.py -f test-data/Mu-like_R1.fastq -p test-data/Mu-like_R2.fastq -r test-data/Mu-like.fasta -n TEST_Mu-like -g test-data/Mu-like_host.fasta"
+    print               "\n# Performing a test run using test phage sequence with Mu-like packaging"
+    print               "\n# python PhageTerm.py -f test-data/Mu-like_R1.fastq -p test-data/Mu-like_R2.fastq -r test-data/Mu-like.fasta -n TEST_Mu-like -g test-data/Mu-like_host.fasta"
     fastq               = "test-data/Mu-like_R1.fastq"
     paired              = "test-data/Mu-like_R2.fastq"
     reference           = "test-data/Mu-like.fasta"
@@ -233,7 +233,7 @@ tot_reads = totReads(fastq)
 if paired != "":
     tot_reads_paired = totReads(paired)
     if (tot_reads != tot_reads_paired):
-        print "\nWARNING: Number of reads between the two reads files differ, using single reads only\n"
+        print "\n# WARNING: Number of reads between the two reads files differ, using single reads only\n"
         paired = ""
 
 # REFERENCE sequence recovery and edge adds
@@ -243,16 +243,16 @@ refseq = refseq[-edge:] + refseq + refseq[:edge]
 # HOST sequence recovery
 hostseq = genomeFastaRecovery(host)
 if len(hostseq) != 0 and len(hostseq) < len(refseq):
-    print "\nHost length < Phage length : removing host sequence."
+    print "\n# Host length < Phage length : removing host sequence."
     hostseq = ""
 if hostseq != "":
     hostseq = hostseq[-edge:] + hostseq + hostseq[:edge]
 
 ### COVERAGE
-print "\nCalculating coverage values, please wait (may take a while)...\n"
+print "\n# Calculating coverage values, please wait (may take a while)...\n"
 
 if not test_run and core == 1:
-    print "If your computer has more than 1 processor, you can use the -c or --core option to speed up the process.\n\n"
+    print "# If your computer has more than 1 processor, you can use the -c or --core option to speed up the process.\n\n"
 
 jobs = []
 manager = Manager()
@@ -279,7 +279,7 @@ for j in jobs:
 for j in jobs:
     j.join()
 
-print "\n\nFinished calculating coverage values, the remainder should be completed rapidly\n"
+print "\n\n# Finished calculating coverage values, the remainder should be completed rapidly\n"
 
 # merging results
 for core_id in range(core):
